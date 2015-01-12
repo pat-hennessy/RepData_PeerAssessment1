@@ -1,4 +1,9 @@
-# Reproducible Research: Peer Assessment 1
+---
+title: "Reproducible Research: Peer Assessment 1"
+output: 
+  html_document:
+    keep_md: true
+---
 
 
 <br/>
@@ -31,7 +36,7 @@ g <- ggplot(stepsPerDay, aes(x = steps)) +
 print(g)
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-2-1.png) 
+![plot of chunk unnamed-chunk-2](figure/unnamed-chunk-2-1.png) 
 
 
 #### _Part 1a_
@@ -51,7 +56,7 @@ print(g)
 ## Warning: Removed 8 rows containing missing values (position_stack).
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-3-1.png) 
+![plot of chunk unnamed-chunk-3](figure/unnamed-chunk-3-1.png) 
 <br/>
 
 #### Part 2a
@@ -69,7 +74,7 @@ print(meanStepsPerDay)
 <br/>
 
 #### Part 2b
-Below is calculated the mean total number of steps taken per day.
+Below is calculated the median total number of steps taken per day.
 
 ```r
 medianStepsPerDay <- median(stepsPerDay$steps, na.rm = TRUE)
