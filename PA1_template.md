@@ -1,9 +1,6 @@
----
-title: "Reproducible Research: Peer Assessment 1"
-output: 
-  html_document:
-    keep_md: true
----
+# Reproducible Research: Peer Assessment 1
+<br/>
+<br/>
 
 
 <br/>
@@ -88,6 +85,43 @@ print(medianStepsPerDay)
 <br/>
 
 ## What is the average daily activity pattern?
+<br/>
+
+#### Part 1
+Below is a time series plot of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all days (y-axis).
+
+
+```r
+data$interval <- as.POSIXct(paste(data$interval %/% 100, data$interval %% 100), format = "%H %M")
+
+meanStepsPerInterval <- data %>%
+    group_by(interval) %>%
+    summarise(intervalMean = mean(steps, na.rm = TRUE))
+
+g <- ggplot(meanStepsPerInterval, aes(interval, intervalMean)) +
+    geom_line() +
+    scale_x_datetime(labels = date_format("%H:%M"), breaks = "2 hour") +
+    ylab("Mean Number of Steps") +
+    xlab("Interval")
+    
+
+print(g)
+```
+
+![plot of chunk unnamed-chunk-6](figure/unnamed-chunk-6-1.png) 
+<br/>
+
+#### Part 2
+Below is calculated the 5-minute interval which, on average across all the days in the dataset, contains the maximum number of steps.
+
+
+```r
+max(meanStepsPerInterval$intervalMean)
+```
+
+```
+## [1] 206.1698
+```
 <br/>
 <br/>
 
