@@ -76,7 +76,7 @@ print(medianStepsPerDay)
 #### Part 1
 Below is a time series plot of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all days (y-axis).
 
-```{r}
+```{r fig.width = 10}
 data$interval <- as.POSIXct(paste(data$interval %/% 100, data$interval %% 100), format = "%H %M")
 
 meanStepsPerInterval <- data %>%
@@ -98,7 +98,10 @@ print(g)
 Below is calculated the 5-minute interval which, on average across all the days in the dataset, contains the maximum number of steps.
 
 ```{r}
-max(meanStepsPerInterval$intervalMean)
+maxInterval <- meanStepsPerInterval %>%
+    filter(intervalMean == max(intervalMean))
+
+print(format(maxInterval$interval, "%H:%M"))
 ```
 <br/>
 <br/>

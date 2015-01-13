@@ -116,11 +116,14 @@ Below is calculated the 5-minute interval which, on average across all the days 
 
 
 ```r
-max(meanStepsPerInterval$intervalMean)
+maxInterval <- meanStepsPerInterval %>%
+    filter(intervalMean == max(intervalMean))
+
+print(format(maxInterval$interval, "%H:%M"))
 ```
 
 ```
-## [1] 206.1698
+## [1] "08:35"
 ```
 <br/>
 <br/>
