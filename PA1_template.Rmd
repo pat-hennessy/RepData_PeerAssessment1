@@ -1,6 +1,4 @@
 # Reproducible Research: Peer Assessment 1
-<br/>
-<br/>
 
 ```{r setoptions, echo = FALSE, message = FALSE, warnings = FALSE}
 library(knitr)
@@ -107,6 +105,44 @@ print(format(maxInterval$interval, "%H:%M"))
 <br/>
 
 ## Imputing missing values
+<br/>
+
+#### Part 1
+Below is calculated the total number of rows with NA values.
+
+```{r}
+nrow(filter(data, is.na(steps)))
+```
+
+<br/>
+
+#### Part 2
+These values will be replaced with the mean for the given interval across all days.
+<br/>
+
+#### Part 3
+A new data set is created with the missing values filled in.
+```{r}
+data2 <- data %>%
+    group_by(interval) %>%
+    mutate(steps = ifelse(is.na(steps), mean(steps, na.rm = TRUE), steps))
+```
+
+The first few rows of the original data set and the new data set are shown to verify that the NA's have been replaced, and the number of rows with NA's is recalculated on the new data set to verify they have all been replaced.
+```{r}
+head(data)
+
+head(data2)
+
+nrow(filter(data2, is.na(steps)))
+```
+<br/>
+
+#### Part 4
+Below is a histogram of the total number of steps taken each day.
+
+
+
 <br/>
 <br/>
 

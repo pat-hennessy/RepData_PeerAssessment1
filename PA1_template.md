@@ -1,6 +1,4 @@
 # Reproducible Research: Peer Assessment 1
-<br/>
-<br/>
 
 
 <br/>
@@ -129,6 +127,82 @@ print(format(maxInterval$interval, "%H:%M"))
 <br/>
 
 ## Imputing missing values
+<br/>
+
+#### Part 1
+Below is calculated the total number of rows with NA values.
+
+
+```r
+nrow(filter(data, is.na(steps)))
+```
+
+```
+## [1] 2304
+```
+
+<br/>
+
+#### Part 2
+These values will be replaced with the mean for the given interval across all days.
+<br/>
+
+#### Part 3
+A new data set is created with the missing values filled in.
+
+```r
+data2 <- data %>%
+    group_by(interval) %>%
+    mutate(steps = ifelse(is.na(steps), mean(steps, na.rm = TRUE), steps))
+```
+
+The first few rows of the original data set and the new data set are shown to verify that the NA's have been replaced, and the number of rows with NA's is recalculated on the new data set to verify they have all been replaced.
+
+```r
+head(data)
+```
+
+```
+##   steps       date            interval
+## 1    NA 2012-10-01 2015-01-13 00:00:00
+## 2    NA 2012-10-01 2015-01-13 00:05:00
+## 3    NA 2012-10-01 2015-01-13 00:10:00
+## 4    NA 2012-10-01 2015-01-13 00:15:00
+## 5    NA 2012-10-01 2015-01-13 00:20:00
+## 6    NA 2012-10-01 2015-01-13 00:25:00
+```
+
+```r
+head(data2)
+```
+
+```
+## Source: local data frame [6 x 3]
+## Groups: interval
+## 
+##       steps       date            interval
+## 1 1.7169811 2012-10-01 2015-01-13 00:00:00
+## 2 0.3396226 2012-10-01 2015-01-13 00:05:00
+## 3 0.1320755 2012-10-01 2015-01-13 00:10:00
+## 4 0.1509434 2012-10-01 2015-01-13 00:15:00
+## 5 0.0754717 2012-10-01 2015-01-13 00:20:00
+## 6 2.0943396 2012-10-01 2015-01-13 00:25:00
+```
+
+```r
+nrow(filter(data2, is.na(steps)))
+```
+
+```
+## [1] 0
+```
+<br/>
+
+#### Part 4
+Below is a histogram of the total number of steps taken each day.
+
+
+
 <br/>
 <br/>
 
