@@ -158,7 +158,7 @@ data2 <- data %>%
 
 The first few rows of the original data set and the new data set are shown to verify that the NA's have been replaced, and the number of rows with NA's is recalculated on the new data set to verify they have all been replaced.
 
-_Note, the interval column shows yyyy-mm-dd hh:mm:ss since it was changed to a POSIXct type for proper plotting above._
+_Note, the interval column shows yyyy-mm-dd hh:mm:ss since it was changed to a POSIXct type for proper plotting above.  The date shown in the interval is the run date of the program.  It can be ignored.  Only the hour and minute are significant._
 
 ```r
 head(data)
