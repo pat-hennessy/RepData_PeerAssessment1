@@ -158,18 +158,20 @@ data2 <- data %>%
 
 The first few rows of the original data set and the new data set are shown to verify that the NA's have been replaced, and the number of rows with NA's is recalculated on the new data set to verify they have all been replaced.
 
+_Note, the interval column shows yyyy-mm-dd hh:mm:ss since it was changed to a POSIXct type for proper plotting above._
+
 ```r
 head(data)
 ```
 
 ```
 ##   steps       date            interval
-## 1    NA 2012-10-01 2015-01-13 00:00:00
-## 2    NA 2012-10-01 2015-01-13 00:05:00
-## 3    NA 2012-10-01 2015-01-13 00:10:00
-## 4    NA 2012-10-01 2015-01-13 00:15:00
-## 5    NA 2012-10-01 2015-01-13 00:20:00
-## 6    NA 2012-10-01 2015-01-13 00:25:00
+## 1    NA 2012-10-01 2015-01-14 00:00:00
+## 2    NA 2012-10-01 2015-01-14 00:05:00
+## 3    NA 2012-10-01 2015-01-14 00:10:00
+## 4    NA 2012-10-01 2015-01-14 00:15:00
+## 5    NA 2012-10-01 2015-01-14 00:20:00
+## 6    NA 2012-10-01 2015-01-14 00:25:00
 ```
 
 ```r
@@ -181,12 +183,12 @@ head(data2)
 ## Groups: interval
 ## 
 ##       steps       date            interval
-## 1 1.7169811 2012-10-01 2015-01-13 00:00:00
-## 2 0.3396226 2012-10-01 2015-01-13 00:05:00
-## 3 0.1320755 2012-10-01 2015-01-13 00:10:00
-## 4 0.1509434 2012-10-01 2015-01-13 00:15:00
-## 5 0.0754717 2012-10-01 2015-01-13 00:20:00
-## 6 2.0943396 2012-10-01 2015-01-13 00:25:00
+## 1 1.7169811 2012-10-01 2015-01-14 00:00:00
+## 2 0.3396226 2012-10-01 2015-01-14 00:05:00
+## 3 0.1320755 2012-10-01 2015-01-14 00:10:00
+## 4 0.1509434 2012-10-01 2015-01-14 00:15:00
+## 5 0.0754717 2012-10-01 2015-01-14 00:20:00
+## 6 2.0943396 2012-10-01 2015-01-14 00:25:00
 ```
 
 ```r
@@ -198,12 +200,89 @@ nrow(filter(data2, is.na(steps)))
 ```
 <br/>
 
-#### Part 4
-Below is a histogram of the total number of steps taken each day.
+#### Part 4a
+Below is a histogram of the total number of steps taken each day with the NA's replaced.
 
 
+```r
+stepsPerDay2 <- data2 %>%
+               group_by(date = as.Date(date)) %>%
+               summarise(steps = sum(steps))
 
+g <- ggplot(stepsPerDay2, aes(x = steps)) +
+    geom_histogram(binwidth = 500) +
+    xlab("Steps Per Day")
+
+print(g)
+```
+
+![plot of chunk unnamed-chunk-11](figure/unnamed-chunk-11-1.png) 
+<br/>
+
+#### Part 4b
+Below is calculated the mean total number of steps taken per day with the NA's replaced.
+
+
+```r
+meanStepsPerDay2 <- mean(stepsPerDay2$steps)
+print(meanStepsPerDay2)
+```
+
+```
+## [1] 10766.19
+```
+<br/>
+
+#### Part 4c
+Below is calculated the median total number of steps taken per day with the NA's replaced.
+
+```r
+medianStepsPerDay2 <- median(stepsPerDay2$steps)
+print(medianStepsPerDay2)
+```
+
+```
+## [1] 10766.19
+```
+<br/>
+
+#### Part 4d
+The new values for the mean and median numnber of steps taken each day are roughly the same as the data set with NA's.  Since there were only 8 of the 61 days that had NA's, the impact of imputing them with the mean for each interval was not hugely significant.
 <br/>
 <br/>
 
 ## Are there differences in activity patterns between weekdays and weekends?
+<br/>
+
+#### Part 1
+Below, a new factor variable is created with two levels -- "weekday" and "weekend" indicating whether a given date is a weekday or weekend day.
+
+
+```r
+data2 <- data2 %>%
+    mutate(weekend = ifelse(as.POSIXlt(date)$wday %in% c(0, 6), "weekend", "weekday"))
+```
+<br/>
+
+### Part 2
+Below is a panel plot containing a time series plot of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all weekday days or weekend days (y-axis).
+<br/>
+
+
+```r
+meanStepsPerInterval2 <- data2 %>%
+    group_by(interval, weekend) %>%
+    summarise(intervalMean = mean(steps))
+
+g <- ggplot(meanStepsPerInterval2, aes(interval, intervalMean)) +
+    geom_line() +
+    scale_x_datetime(labels = date_format("%H:%M"), breaks = "2 hour") +
+    facet_grid(weekend ~ .) +
+    ylab("Mean Number of Steps") +
+    xlab("Interval")
+
+print(g)
+```
+
+![plot of chunk unnamed-chunk-15](figure/unnamed-chunk-15-1.png) 
+
