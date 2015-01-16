@@ -26,7 +26,7 @@ stepsPerDay <- data %>%
 <br/>
 
 #### Part 1
-Below is a histogram showing the frequency of occurrence of counts of the total steps taken per day.  This is in accordance with David Cook's (Community TA) [clarification of this part of the assignment](https://class.coursera.org/repdata-010/forum/thread?thread_id=9).
+Below is a histogram of the total number of steps taken each day.  This is in accordance with David Cook's (Community TA) [clarification of this part of the assignment](https://class.coursera.org/repdata-010/forum/thread?thread_id=9).
 
 ```{r}
 g <- ggplot(stepsPerDay, aes(x = steps)) +
