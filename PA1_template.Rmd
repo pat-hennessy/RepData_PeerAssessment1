@@ -174,7 +174,7 @@ print(medianStepsPerDay2)
 <br/>
 
 #### Part 4d
-The new values for the mean and median numnber of steps taken each day are roughly the same as the data set with NA's.  Since there were only 8 of the 61 days that had NA's, the impact of imputing them with the mean for each interval was not hugely significant.
+The new value for the mean number of steps taken each day is the same as with NA's since the NA's were replaced with the interval mean.  The median is raised slightly since the additional values were all equal to the interval mean which was only slightly higher than the original median.
 <br/>
 <br/>
 
@@ -182,7 +182,7 @@ The new values for the mean and median numnber of steps taken each day are rough
 <br/>
 
 #### Part 1
-Below, a new factor variable is created with two levels -- "weekday" and "weekend" indicating whether a given date is a weekday or weekend day.
+Below, a new factor variable is created with two levels - "weekday" and "weekend" indicating whether a given date is a weekday or weekend day.
 
 ```{r}
 data2 <- data2 %>%

@@ -437,7 +437,7 @@ print(medianStepsPerDay2)
 
 <h4>Part 4d</h4>
 
-<p>The new values for the mean and median numnber of steps taken each day are roughly the same as the data set with NA&#39;s.  Since there were only 8 of the 61 days that had NA&#39;s, the impact of imputing them with the mean for each interval was not hugely significant.
+<p>The new value for the mean number of steps taken each day is the same as with NA&#39;s since the NA&#39;s were replaced with the interval mean.  The median is raised slightly since the additional values were all equal to the interval mean which was only slightly higher than the original median.
 <br/>
 <br/></p>
 
@@ -447,7 +447,7 @@ print(medianStepsPerDay2)
 
 <h4>Part 1</h4>
 
-<p>Below, a new factor variable is created with two levels &ndash; &ldquo;weekday&rdquo; and &ldquo;weekend&rdquo; indicating whether a given date is a weekday or weekend day.</p>
+<p>Below, a new factor variable is created with two levels - &ldquo;weekday&rdquo; and &ldquo;weekend&rdquo; indicating whether a given date is a weekday or weekend day.</p>
 
 <pre><code class="r">data2 &lt;- data2 %&gt;%
     mutate(weekend = ifelse(as.POSIXlt(date)$wday %in% c(0, 6), &quot;weekend&quot;, &quot;weekday&quot;))
